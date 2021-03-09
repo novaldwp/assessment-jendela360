@@ -6,16 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Main\CarSellingRequest;
 use App\Models\Car;
 use App\Models\CarSelling;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
 
 class CarSellingController extends Controller
 {
     public function index()
     {
         $carsellings = CarSelling::with(['cars'])->orderByDesc('id')->paginate(5);
-        // $carsellings = CarSelling::with(['cars'])->orderByDesc('id')->get();
-        // $carsellings = Car::with(['carsellings'])->get();
 
-        // return $carsellings;
         return view('car-selling.index', compact('carsellings'));
     }
 
@@ -35,12 +34,9 @@ class CarSellingController extends Controller
 
         $store = CarSelling::create($params);
 
-        return redirect()->route('car-selling.index')->with("success", "Berhasil menambahkan data penjualan mobil");
-    }
+        Mail::to($params['email'])->send(new SendMail($params));
 
-    public function show($id)
-    {
-        //
+        return redirect()->route('car-selling.index')->with("success", "Berhasil menambahkan data penjualan mobil");
     }
 
     public function edit($id)
