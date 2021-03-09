@@ -42,7 +42,7 @@ class CarSellingController extends Controller
     public function edit($id)
     {
         $carselling = $this->getSellingById($id);
-        $cars       = Car::orderByDesc('id')->get();
+        $cars       = Car::orderBy('name')->get();
 
         return view('car-selling.edit', compact('carselling', 'cars'));
     }

@@ -35,8 +35,8 @@
                       <td>{{ $car->name }}</td>
                       <td>{{ $car->email }}</td>
                       <td>{{ $car->phone }}</td>
-                      <td>{{ $car->cars->price }}</td>
                       <td>{{ $car->cars->name }}</td>
+                      <td>{{ $car->cars->price }}</td>
                       <td>
                           <form action="{{ route('car-selling.destroy', $car->id) }}" method="POST">
                               @csrf

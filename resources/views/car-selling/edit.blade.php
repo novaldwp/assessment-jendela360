@@ -55,7 +55,7 @@
                             <select name="car_id" id="car_id" class="form-control">
                                 <option selected disabled></option>
                                 @forelse($cars as $car)
-                                    <option value="{{ $car->id }}" {{ $car->id == $carselling->id ? "selected" : ""}}>{{ $car->name }}</option>
+                                    <option value="{{ $car->id }}" {{ $car->id == $carselling->car_id ? "selected" : ""}}>{{ $car->name }}</option>
                                 @empty
                                     <option value="{{ route('cars.create') }}" id="add-cars">Belum ada data mobil, klik untuk tambah data mobil</option>
                                 @endforelse
