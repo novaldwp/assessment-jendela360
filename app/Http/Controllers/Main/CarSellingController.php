@@ -20,7 +20,7 @@ class CarSellingController extends Controller
 
     public function create()
     {
-        $cars = Car::orderBy('name')->get();
+        $cars = Car::orderBy('name')->where('stock', '>', 0)->get();
 
         return view('car-selling.create', compact('cars'));
     }
@@ -32,9 +32,9 @@ class CarSellingController extends Controller
         $params['phone']    = $request->phone;
         $params['car_id']   = $request->car_id;
 
-        $store = CarSelling::create($params);
-
-        Mail::to($params['email'])->send(new SendMail($params));
+        $store    = CarSelling::create($params);
+        $decStock = $this->updateCarMinusStock($request->car_id);
+        // Mail::to($params['email'])->send(new SendMail($params));
 
         return redirect()->route('car-selling.index')->with("success", "Berhasil menambahkan data penjualan mobil");
     }
@@ -42,7 +42,7 @@ class CarSellingController extends Controller
     public function edit($id)
     {
         $carselling = $this->getSellingById($id);
-        $cars       = Car::orderBy('name')->get();
+        $cars       = Car::orderBy('name')->where('stock', '>', 0)->get();
 
         return view('car-selling.edit', compact('carselling', 'cars'));
     }
@@ -55,6 +55,13 @@ class CarSellingController extends Controller
         $params['car_id']   = $request->car_id;
 
         $carselling = $this->getSellingById($id);
+
+        if ($carselling->car_id != $request->car_id)
+        {
+            $incStock = $this->updateCarPlusStock($carselling->car_id);
+            $decStock = $this->updateCarMinusStock($request->car_id);
+        }
+
         $carselling->update($params);
 
         return redirect()->route('car-selling.index')->with("success", "Berhasil mengubah data penjualan mobil");
@@ -73,5 +80,23 @@ class CarSellingController extends Controller
         $carselling = CarSelling::findOrFail($id);
 
         return $carselling;
+    }
+
+    public function updateCarMinusStock($id)
+    {
+        $car = Car::findOrFail($id);
+        $car->stock = $car->stock - 1;
+        $car->save();
+
+        return true;
+    }
+
+    public function updateCarPlusStock($id)
+    {
+        $car = Car::findOrFail($id);
+        $car->stock = $car->stock + 1;
+        $car->save();
+
+        return true;
     }
 }
