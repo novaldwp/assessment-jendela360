@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Tambah Mobil | Assessment Jendela360
+    Mobil | Assessment Jendela360
 @endsection
 
 @section('content')
@@ -12,7 +12,6 @@
             <div class="col-md-12">
                 <form action="{{ route('cars.store') }}" method="POST" class="needs-validation">
                     @csrf
-                    {{-- {{ dd($errors) }} --}}
                     <div class="form-group row">
                         <label for="name" class="control-label col-md-2 text-right">Nama Mobil</label>
                         <div class="col-md-9">

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Ubah Penjualan Mobil | Assessment Jendela360
+    Penjualan | Assessment Jendela360
 @endsection
 
 @section('content')
