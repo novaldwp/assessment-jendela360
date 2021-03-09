@@ -20,6 +20,9 @@
             <li class="nav-item {{ request()->is('car-selling*') ? "active":"" }}">
               <a class="nav-link" href="{{ route('car-selling.index') }}">Penjualan</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('auth.logout') }}">Logout</a>
+            </li>
           </ul>
         </div>
     </nav>
