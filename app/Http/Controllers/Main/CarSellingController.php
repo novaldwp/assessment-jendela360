@@ -34,7 +34,7 @@ class CarSellingController extends Controller
 
         $store    = CarSelling::create($params);
         $decStock = $this->updateCarMinusStock($request->car_id);
-        // Mail::to($params['email'])->send(new SendMail($params));
+        Mail::to($params['email'])->send(new SendMail($params));
 
         return redirect()->route('car-selling.index')->with("success", "Berhasil menambahkan data penjualan mobil");
     }
