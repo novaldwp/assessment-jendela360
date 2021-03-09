@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('title')
-    Ubah Mobil | Assessment Jendela360
+    Ubah Penjualan Mobil | Assessment Jendela360
 @endsection
 
 @section('content')
 <div class="col-md-12">
     <div class="card card-primary mt-3">
-        <div class="card-header text-center"><h4>Ubah Data Mobil</h4></div>
+        <div class="card-header text-center"><h4>Ubah Data Penjualan Mobil</h4></div>
         <div class="card-body">
             <div class="col-md-12">
                 <form action="{{ route('car-selling.update', $carselling->id) }}" method="POST" class="needs-validation">

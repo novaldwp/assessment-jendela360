@@ -19,8 +19,8 @@
                   @if($sellingtoday)
                   <tr>
                       <td>{{ $sellingtoday->cars->name }}</td>
-                      <td>{{ $sellingtoday->total_selling}}</td>
-                      <td>{{ $sellingtoday->cars->price * $sellingtoday->total_selling }}</td>
+                      <td>{{ $sellingtoday->total_selling}} ( {{ $totalDiffAmount > 0 ? "+":"-"}}{{ $totalDiffAmount }}% )</td>
+                      <td>Rp. {{ number_format($sellingtoday->cars->price * $sellingtoday->total_selling, 0) }} ( {{ $totalDiffPrice > 0 ? "+":"-"}}{{ $totalDiffPrice }}% )</td>
                   </tr>
                   @else
                   <tr>
@@ -54,7 +54,7 @@
                   <tr>
                       <td>{{ $sellingweek->cars->name }}</td>
                       <td>{{ $sellingweek->total_selling}}</td>
-                      <td>{{ $sellingweek->cars->price * $sellingweek->total_selling }}</td>
+                      <td>Rp. {{ number_format($sellingweek->cars->price * $sellingweek->total_selling, 0) }}</td>
                   </tr>
                   @else
                   <tr>

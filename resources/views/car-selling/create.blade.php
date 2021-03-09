@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Tambah Mobil | Assessment Jendela360
+    Tambah Penjualan Mobil | Assessment Jendela360
 @endsection
 
 @section('content')
