@@ -8,7 +8,6 @@ use DB;
 
 class HomeController extends Controller
 {
-
     public function index()
     {
         $now    = date('Y-m-d H:i:s');
@@ -36,13 +35,15 @@ class HomeController extends Controller
             ->orderByDesc('total_selling')
             ->first();
 
-        $totalPriceToday = $sellingtoday->cars->price * $sellingtoday->total_selling;
-        $totalPriceYest  = $sellingyest->cars->price * $sellingyest->total_selling;
-        $totalAmountToday= $sellingtoday->total_selling;
-        $totalAmountYest = $sellingyest->total_selling;
+        $totalPriceToday = $sellingtoday ? $sellingtoday->cars->price * $sellingtoday->total_selling : "";
+        $totalPriceYest  = $sellingyest ? $sellingyest->cars->price * $sellingyest->total_selling : "";
+        $totalAmountToday=  $sellingtoday ? $sellingtoday->total_selling : "";
+        $totalAmountYest = $sellingyest ? $sellingyest->total_selling : "";
+        $totalDiffPrice  = "";
+        $totalDiffAmount = "";
 
-        $totalDiffPrice  = round((($totalPriceToday - $totalPriceYest) / $totalPriceToday ) * 100, 1);
-        $totalDiffAmount = round((($totalAmountToday - $totalAmountYest) / $totalAmountToday) * 100, 1);
+        ($totalPriceToday && $totalPriceYest != "") ? $totalDiffPrice  = round((($totalPriceToday - $totalPriceYest) / $totalPriceToday ) * 100, 1) : "";
+        ($totalAmountToday && $totalAmountYest != "") ? $totalDiffAmount = round((($totalAmountToday - $totalAmountYest) / $totalAmountToday) * 100, 1) : "";
 
         return view('dashboard.index', compact('sellingtoday', 'sellingweek', 'totalDiffPrice', 'totalDiffAmount'));
     }
